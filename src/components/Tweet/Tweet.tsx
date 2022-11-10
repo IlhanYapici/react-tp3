@@ -1,46 +1,43 @@
-import { Box, Text, Tag, Tooltip, Button } from "@chakra-ui/react"
+import { Avatar, Box, IconButton, Tag, Text, Tooltip } from "@chakra-ui/react"
+import { BiEditAlt as EditIcon } from "react-icons/bi"
 
 import { ITweetProps } from "./Tweet-types"
 
-export function Tweet({ tweet }: ITweetProps) {
-	const { id, author, authorId, content, tags } = tweet
-
-	const deleteTweet = async () => {
-		await fetch(`http://localhost:5000/tweets/${id}`, {
-			method: "DELETE"
-		})
-		window.location.reload()
-	}
+export function Tweet({ tweet, setEditedTweet }: ITweetProps) {
+	const { id, author, content, tags } = tweet
 
 	return (
 		<Box
 			key={id}
 			mt="1rem"
-			position="relative"
 			display="flex"
+			position="relative"
 			flexDirection="column"
 			justifyContent="space-between"
 			backgroundColor="gray.50"
 			textColor="black"
-			w="300px"
+			minW="300px"
+			w="90%"
 			p="1rem"
+			justifySelf="center"
 		>
-			<Button
-				position="absolute"
-				top="0.5rem"
-				right="0.5rem"
-				onClick={deleteTweet}
-				size="xs"
-				variant="ghost"
-				colorScheme="red"
-			>
-				Delete
-			</Button>
-			<Tooltip label={authorId}>
-				<Text fontWeight="bold" fontSize="1.1rem" w="fit-content">
-					{author}
+			<Box display="flex" flexDir="row" gap="0.4rem" alignItems="center">
+				<Avatar name={author} />
+				<Text fontWeight="bold" fontSize="1.2rem" w="fit-content">
+					@{author}
 				</Text>
-			</Tooltip>
+				<Tooltip label="Éditer" placement="top">
+					<IconButton
+						w="fit-content"
+						ml="auto"
+						size="sm"
+						aria-label="edit tweet"
+						icon={<EditIcon />}
+						variant="solid"
+						onClick={() => setEditedTweet(tweet)}
+					/>
+				</Tooltip>
+			</Box>
 
 			<Text mt="0.5rem" pl="0.75rem">
 				{content}

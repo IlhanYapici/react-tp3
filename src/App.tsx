@@ -6,9 +6,12 @@ import { Tweet } from "./components/Tweet/Tweet"
 
 import "./App.css"
 import { CreateTweet } from "./views/CreateTweet/CreateTweet"
+import { Drawer } from "./components/Drawer/Drawer"
+import { EditTweet } from "./views/EditTweet/EditTweet"
 
 function App() {
 	const [tweets, setTweets] = useState<ITweet[]>([])
+	const [editedTweet, setEditedTweet] = useState<ITweet | null>(null)
 	const btnRef = useRef(null)
 	const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -21,6 +24,12 @@ function App() {
 
 		fetchTweets()
 	}, [isOpen])
+
+	useEffect(() => {
+		if (editedTweet) {
+			onOpen()
+		}
+	}, [editedTweet])
 
 	return (
 		<div className="App">
@@ -48,18 +57,29 @@ function App() {
 				</Box>
 			</Box>
 
-			<Container mt="2rem" display="grid" gridAutoRows="1fr" gap="1.5rem">
-				{tweets.map((tweet) => (
-					<Tweet tweet={tweet} />
+			<Container
+				mt="2rem"
+				display="grid"
+				gridTemplateColumns="1fr"
+				gridAutoRows="1fr"
+				gap="1.5rem"
+			>
+				{tweets.map((tweet, i) => (
+					<Tweet key={i} tweet={tweet} setEditedTweet={setEditedTweet} />
 				))}
 			</Container>
 
-			<CreateTweet
-				isOpen={isOpen}
-				onOpen={onOpen}
-				onClose={onClose}
-				btnRef={btnRef}
-			/>
+			<Drawer isOpen={isOpen} onClose={onClose}>
+				{editedTweet !== null ? (
+					<EditTweet
+						onClose={onClose}
+						setEditedTweet={setEditedTweet}
+						tweet={editedTweet}
+					/>
+				) : (
+					<CreateTweet onClose={onClose} />
+				)}
+			</Drawer>
 
 			<Button
 				ref={btnRef}
@@ -70,7 +90,7 @@ function App() {
 				colorScheme="twitter"
 				onClick={onOpen}
 			>
-				Tweet
+				Tweeter
 			</Button>
 		</div>
 	)
