@@ -1,0 +1,32 @@
+{
+  "tweets": [
+    {
+      "id": 1,
+      "author": "barney",
+      "authorId": "barneyquepasa",
+      "content": "lache cette zizi",
+      "tags": [
+        "gra",
+        "pistache",
+        "grole"
+      ]
+    },
+    {
+      "id": "78045028-4866-4340-a602-bd672ba983bb",
+      "author": "toto",
+      "authorId": "5a2b77b9-ba82-4702-9dd2-386b08c59b2c",
+      "content": "blabla",
+      "tags": []
+    },
+    {
+      "id": "d7c0452d-e500-42ed-ab17-4061b3ee04fc",
+      "author": "ragar",
+      "authorId": "666ce3d6-7921-47fc-b3e6-b5839bf97f35",
+      "content": "aczrc",
+      "tags": [
+        "acr",
+        "tryurz"
+      ]
+    }
+  ]
+}
