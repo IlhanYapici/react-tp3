@@ -9,12 +9,17 @@ export function Tweet({ tweet }: ITweetProps) {
 		await fetch(`http://localhost:5000/tweets/${id}`, {
 			method: "DELETE"
 		})
+		window.location.reload()
 	}
 
 	return (
 		<Box
 			key={id}
+			mt="1rem"
 			position="relative"
+			display="flex"
+			flexDirection="column"
+			justifyContent="space-between"
 			backgroundColor="gray.50"
 			textColor="black"
 			w="300px"
@@ -32,20 +37,24 @@ export function Tweet({ tweet }: ITweetProps) {
 				Delete
 			</Button>
 			<Tooltip label={authorId}>
-				<Text fontWeight="bold" fontSize="1.1rem">
+				<Text fontWeight="bold" fontSize="1.1rem" w="fit-content">
 					{author}
 				</Text>
 			</Tooltip>
-			<Box>
-				<Text>{content}</Text>
-			</Box>
-			<Box>
-				{tags.map((tag) => (
-					<Tag size="sm" key={tag}>
-						{tag}
-					</Tag>
-				))}
-			</Box>
+
+			<Text mt="0.5rem" pl="0.75rem">
+				{content}
+			</Text>
+
+			{tags && (
+				<Box mt="1rem" display="flex" gap="0.25rem">
+					{tags.map((tag) => (
+						<Tag size="sm" key={tag}>
+							{tag}
+						</Tag>
+					))}
+				</Box>
+			)}
 		</Box>
 	)
 }
