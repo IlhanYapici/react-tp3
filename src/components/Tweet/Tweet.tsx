@@ -20,6 +20,7 @@ export function Tweet({ tweet, setEditedTweet }: ITweetProps) {
 			w="90%"
 			p="1rem"
 			justifySelf="center"
+			borderRadius="0.75rem"
 		>
 			<Box display="flex" flexDir="row" gap="0.4rem" alignItems="center">
 				<Avatar name={author} />
@@ -39,17 +40,21 @@ export function Tweet({ tweet, setEditedTweet }: ITweetProps) {
 				</Tooltip>
 			</Box>
 
-			<Text mt="0.5rem" pl="0.75rem">
+			<Text mt="0.5rem" p="0 0.75rem">
 				{content}
 			</Text>
 
 			{tags && (
 				<Box mt="1rem" display="flex" gap="0.25rem">
-					{tags.map((tag) => (
-						<Tag size="sm" key={tag}>
-							{tag}
-						</Tag>
-					))}
+					{tags.map((tag) => {
+						if (tag !== "") {
+							return (
+								<Tag size="sm" key={tag}>
+									{tag}
+								</Tag>
+							)
+						}
+					})}
 				</Box>
 			)}
 		</Box>

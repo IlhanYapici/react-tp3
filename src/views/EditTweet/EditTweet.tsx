@@ -35,6 +35,13 @@ export function EditTweet({ onClose, setEditedTweet, tweet }: IEditTweetProps) {
 			method: "DELETE"
 		})
 
+		toast({
+			description: "Your tweet has been deleted",
+			status: "error",
+			duration: 2000,
+			isClosable: true
+		})
+
 		resetTweet()
 	}
 
